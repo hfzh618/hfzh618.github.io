@@ -6,7 +6,7 @@
 <meta property="og:description" content="​    记录Hexo的使用教程和常用命令。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-24T13:38:28.000Z">
-<meta property="article:modified_time" content="2020-08-24T13:44:29.541Z">
+<meta property="article:modified_time" content="2020-08-24T14:47:32.862Z">
 <meta property="article:author" content="hfzh618">
 <meta property="article:tag" content="Hexo">
 <meta name="twitter:card" content="summary"><title>Hexo使用笔记 | hfzh618的技术博客</title><link ref="canonical" href="https://hfzh618.github.io/2020/08/24/Hexo%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.1.1"><script>var Stun = window.Stun || {};
@@ -72,7 +72,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.0.2"></he
       
         <h2 id="hexo-new"   >
           <a href="#hexo-new" class="heading-link"><i class="fas fa-link"></i></a>hexo new</h2>
-      <p>​    这个命令是新建一篇博文，具体的使用方法为：<code>hexo new [layout] &lt;title&gt;</code>，其中 layout 为可选项，选择这篇博文的布局，常见的有 post 和 draft 两种，post 会将其放置在 _posts 文件夹中，而 draft 则在 _drafts 中。如果不填写，默认将会选择 post。title 则是必选项，会做为文件名称，生成的文件就是 <title>.md。</p>
+      <p>​    这个命令是新建一篇博文，具体的使用方法为：<code>hexo new [layout] &lt;title&gt;</code>，其中 layout 为可选项，选择这篇博文的布局，常见的有 post 和 draft 两种，post 会将其放置在 _posts 文件夹中，而 draft 则在 _drafts 中。如果不填写，默认将会选择 post。title 则是必选项，会做为文件名称，生成的文件就是 title.md。</p>
 
         <h1 id="发布博文"   >
           <a href="#发布博文" class="heading-link"><i class="fas fa-link"></i></a>发布博文</h1>
@@ -100,7 +100,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.0.2"></he
       <p>Hexo 每一篇生成的文章开头都会有一段由两行 「—」包裹起来的内容，称为 Front-matter</p>
 <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---title: my-test-draftdate: 2020-03-05 13:47:52tags:---</span><br></pre></td></tr></table></div></figure>
 
-<p>title 指的是博文的标题，默认生成的标题与使用 hexo new 命令中输入的 <title> 相同，但是可以自行更改。</p>
+<p>title 指的是博文的标题，默认生成的标题与使用 hexo new 命令中输入的 title 相同，但是可以自行更改。</p>
 <p>date 指的是文件被发布的时间，如果是直接生成的时间，那就与生成时间相同，如果是由 draft 通过 hexo publish 命令发布的，那就与 publish 的时间相同。</p>
 <p>tags 指的是文章的标签，可以打上多个，如下所示：</p>
 <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tags:    - tag1    - tag2    - tag3</span><br></pre></td></tr></table></div></figure>
