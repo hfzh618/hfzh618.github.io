@@ -92,104 +92,53 @@
         <p>​    记录Hexo的使用教程和常用命令。</p>
 <a id="more"></a>
 
-
-        <h1 id="初始化"   >
-          <a href="#初始化" class="heading-link"><i class="fas fa-link"></i></a>初始化</h1>
-      <p>​    通过 <code>hexo init</code> 命令来初始化，之后可以加上文件夹名称来制定初始化的文件夹位置，不然默认将会在当前文件夹进行初始化。初始化的目录下不能有任何文件，否则会报错。</p>
-
-        <h2 id="文件介绍"   >
-          <a href="#文件介绍" class="heading-link"><i class="fas fa-link"></i></a>文件介绍</h2>
-      <ol>
+<h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><p>​    通过 <code>hexo init</code> 命令来初始化，之后可以加上文件夹名称来制定初始化的文件夹位置，不然默认将会在当前文件夹进行初始化。初始化的目录下不能有任何文件，否则会报错。</p>
+<h2 id="文件介绍"><a href="#文件介绍" class="headerlink" title="文件介绍"></a>文件介绍</h2><ol>
 <li><strong>_config.yml</strong> 文件，配置了博客的各项设置</li>
 <li><strong>source</strong> 文件夹，里面有所有的博文或是独立页面</li>
 <li><strong>themes</strong> 文件夹，包含了一个或多个主题文件夹</li>
 </ol>
 <p>接下去我来一一详细介绍一下：</p>
-
-        <h4 id="config-yml"   >
-          <a href="#config-yml" class="heading-link"><i class="fas fa-link"></i></a>_config.yml</h4>
-      <p>​    这个文件使用的是 yaml 语法写成的，正常情况下不用掌握任何变成知识也能看懂，注意，# 后的内容是注释，将会被无视。文件中我认为比较重要的是 Site， theme 还有 deploy 这几块。deploy 将在之后讲到部署的时候再提。这里就简单说明一下 Site 和 theme</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">title: Hexo    # title 的作用是在浏览其中打开时，显示在标签页上的标题subtitle: &#39;&#39;    # 副标题在某些主题中会被显示，但更有可能直接无视description: &#39;&#39;    # 用于被搜索引擎捕获时告知其站点的基本信息keywords:      # 网站关键词author: John Doe    # 作者名称，language: en    # 网站语言，主要看主题是否支持，同时具体书写方式也因主题而异timezone: &#39;&#39;    # 设置时区，中国可以直接写成 Asia&#x2F;Shanghai</span><br></pre></td></tr></table></div></figure>
+<h4 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h4><p>​    这个文件使用的是 yaml 语法写成的，正常情况下不用掌握任何变成知识也能看懂，注意，# 后的内容是注释，将会被无视。文件中我认为比较重要的是 Site， theme 还有 deploy 这几块。deploy 将在之后讲到部署的时候再提。这里就简单说明一下 Site 和 theme</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">title: Hexo    # title 的作用是在浏览其中打开时，显示在标签页上的标题subtitle: &#39;&#39;    # 副标题在某些主题中会被显示，但更有可能直接无视description: &#39;&#39;    # 用于被搜索引擎捕获时告知其站点的基本信息keywords:      # 网站关键词author: John Doe    # 作者名称，language: en    # 网站语言，主要看主题是否支持，同时具体书写方式也因主题而异timezone: &#39;&#39;    # 设置时区，中国可以直接写成 Asia&#x2F;Shanghai</span><br></pre></td></tr></table></figure>
 
 <p>​     而theme 则是用于设置博客所使用的主题，具体内容需要完全符合 themes 文件夹中主题文件夹的名称。</p>
 <p>另外需要提醒的是，yaml 语法中， :（冒号）后面需要加上空格，不然会报错。</p>
-
-        <h4 id="source文件夹"   >
-          <a href="#source文件夹" class="heading-link"><i class="fas fa-link"></i></a>source文件夹</h4>
-      <p>​    在一开始，可能其中只有 _posts 文件夹，这里面是用来存放发表后的博文的，之后如果生成过草稿文件，那么会多出来一个 _drafts 文件夹，用于存放草稿，同时如果生成过独立页面，还会生成与页面名称相同的文件夹。</p>
-
-        <h4 id="themes文件夹"   >
-          <a href="#themes文件夹" class="heading-link"><i class="fas fa-link"></i></a>themes文件夹</h4>
-      <p>​    这里面存放了所有的主题，每个主题一个文件夹，具体名称可以随意修改，但修改后一定要修改根目录下的 _config.yml 中 theme 条目，不然会出现错误。</p>
+<h4 id="source文件夹"><a href="#source文件夹" class="headerlink" title="source文件夹"></a>source文件夹</h4><p>​    在一开始，可能其中只有 _posts 文件夹，这里面是用来存放发表后的博文的，之后如果生成过草稿文件，那么会多出来一个 _drafts 文件夹，用于存放草稿，同时如果生成过独立页面，还会生成与页面名称相同的文件夹。</p>
+<h4 id="themes文件夹"><a href="#themes文件夹" class="headerlink" title="themes文件夹"></a>themes文件夹</h4><p>​    这里面存放了所有的主题，每个主题一个文件夹，具体名称可以随意修改，但修改后一定要修改根目录下的 _config.yml 中 theme 条目，不然会出现错误。</p>
 <p>​    一开始 Hexo 自带的主题名为 landscape，因此能够在 themes 文件夹下找到同名文件夹。</p>
 <p>​    之前提到 _config.yml 中的 language 选项，如果在主题文件夹下发现了 languages 文件夹，那么说明这个主题是支持多种语言的。进入该文件夹，就能发现一些 <language_name>.yml 文件，这时候就需要修改 language 为文件名中的 <language_name> ，例如有 zh.yml，就需要将 language 修改为 zh，没有 zh 但有 zh_cn 时就需要将 zh 改为 zh_cn 。</p>
-
-        <h1 id="新建博文"   >
-          <a href="#新建博文" class="heading-link"><i class="fas fa-link"></i></a>新建博文</h1>
-      
-        <h2 id="hexo-new"   >
-          <a href="#hexo-new" class="heading-link"><i class="fas fa-link"></i></a>hexo new</h2>
-      <p>​    这个命令是新建一篇博文，具体的使用方法为：<code>hexo new [layout] &lt;title&gt;</code>，其中 layout 为可选项，选择这篇博文的布局，常见的有 post 和 draft 两种，post 会将其放置在 _posts 文件夹中，而 draft 则在 _drafts 中。如果不填写，默认将会选择 post。title 则是必选项，会做为文件名称，生成的文件就是 title.md。</p>
-
-        <h1 id="发布博文"   >
-          <a href="#发布博文" class="heading-link"><i class="fas fa-link"></i></a>发布博文</h1>
-      
-        <h2 id="hexo-publish"   >
-          <a href="#hexo-publish" class="heading-link"><i class="fas fa-link"></i></a>hexo publish</h2>
-      <p>​    发布命令，会将草稿发布出去，使用方法为 <code>hexo publish [layout] &lt;filename&gt;</code> ，layout 可以选择发布时使用的模板，默认为 post。<filename> 则是草稿的文件名，注意不包括后缀名。</p>
-
-        <h1 id="启动服务器"   >
-          <a href="#启动服务器" class="heading-link"><i class="fas fa-link"></i></a>启动服务器</h1>
-      
-        <h2 id="hexo-server"   >
-          <a href="#hexo-server" class="heading-link"><i class="fas fa-link"></i></a>hexo server</h2>
-      <p>​    这个命令将会启动一个本地服务器，将你的博客暂时可以从本地直接访问，方便查看效果。这个命令执行后，打开浏览器，访问 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="http://localhost:4000/" >http://localhost:4000</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 即可。如果想要停止，按下 ctrl＋c 终止命令。</p>
+<h1 id="新建博文"><a href="#新建博文" class="headerlink" title="新建博文"></a>新建博文</h1><h2 id="hexo-new"><a href="#hexo-new" class="headerlink" title="hexo new"></a>hexo new</h2><p>​    这个命令是新建一篇博文，具体的使用方法为：<code>hexo new [layout] &lt;title&gt;</code>，其中 layout 为可选项，选择这篇博文的布局，常见的有 post 和 draft 两种，post 会将其放置在 _posts 文件夹中，而 draft 则在 _drafts 中。如果不填写，默认将会选择 post。title 则是必选项，会做为文件名称，生成的文件就是 title.md。</p>
+<h1 id="发布博文"><a href="#发布博文" class="headerlink" title="发布博文"></a>发布博文</h1><h2 id="hexo-publish"><a href="#hexo-publish" class="headerlink" title="hexo publish"></a>hexo publish</h2><p>​    发布命令，会将草稿发布出去，使用方法为 <code>hexo publish [layout] &lt;filename&gt;</code> ，layout 可以选择发布时使用的模板，默认为 post。<filename> 则是草稿的文件名，注意不包括后缀名。</p>
+<h1 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h1><h2 id="hexo-server"><a href="#hexo-server" class="headerlink" title="hexo server"></a>hexo server</h2><p>​    这个命令将会启动一个本地服务器，将你的博客暂时可以从本地直接访问，方便查看效果。这个命令执行后，打开浏览器，访问 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 即可。如果想要停止，按下 ctrl＋c 终止命令。</p>
 <blockquote>
 <p>可被简写为 <code>hexo s</code> </p>
 </blockquote>
-
-        <h1 id="文章写作"   >
-          <a href="#文章写作" class="heading-link"><i class="fas fa-link"></i></a>文章写作</h1>
-      <p>明白了如何使用 Hexo 生成想要的文件以及如何预览之后，就可以开始进行博文的撰写了。在 source 目录下，可以找到所有生成的文章，可以使用任何喜欢的文本编辑器进行编辑。Hexo 的博文使用的是 markdown 来撰写的，当然也可以插入一些 HTML 代码来进行自定义。</p>
-
-        <h2 id="Front-matter"   >
-          <a href="#Front-matter" class="heading-link"><i class="fas fa-link"></i></a>Front-matter</h2>
-      <p>Hexo 每一篇生成的文章开头都会有一段由两行 「—」包裹起来的内容，称为 Front-matter</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---title: my-test-draftdate: 2020-03-05 13:47:52tags:---</span><br></pre></td></tr></table></div></figure>
+<h1 id="文章写作"><a href="#文章写作" class="headerlink" title="文章写作"></a>文章写作</h1><p>明白了如何使用 Hexo 生成想要的文件以及如何预览之后，就可以开始进行博文的撰写了。在 source 目录下，可以找到所有生成的文章，可以使用任何喜欢的文本编辑器进行编辑。Hexo 的博文使用的是 markdown 来撰写的，当然也可以插入一些 HTML 代码来进行自定义。</p>
+<h2 id="Front-matter"><a href="#Front-matter" class="headerlink" title="Front-matter"></a>Front-matter</h2><p>Hexo 每一篇生成的文章开头都会有一段由两行 「—」包裹起来的内容，称为 Front-matter</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">---title: my-test-draftdate: 2020-03-05 13:47:52tags:---</span><br></pre></td></tr></table></figure>
 
 <p>title 指的是博文的标题，默认生成的标题与使用 hexo new 命令中输入的 title 相同，但是可以自行更改。</p>
 <p>date 指的是文件被发布的时间，如果是直接生成的时间，那就与生成时间相同，如果是由 draft 通过 hexo publish 命令发布的，那就与 publish 的时间相同。</p>
 <p>tags 指的是文章的标签，可以打上多个，如下所示：</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tags:    - tag1    - tag2    - tag3</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tags:    - tag1    - tag2    - tag3</span><br></pre></td></tr></table></figure>
 
 <p>当然如果不需要使用多个 tag 的情况下，可以直接将唯一的 tag 直接加到 tags 后面，就像这样：</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tags: onlyTag</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tags: onlyTag</span><br></pre></td></tr></table></figure>
 
 <p>这段内容必须在每篇博文的最顶端，上面可以有空行但是不可以有其他文字，不然会出现错误</p>
 <p>其二就是摘要。每一篇生成的博文应该都会出现在 Hexo 的主页上。如果不使用摘要，那么每一篇文章都会全文显示在主页上，这是很不美观，也很浪费资源的一种方式。如果使用摘要，那么主页上只会显示一小段内容，不仅吸引了读者，还能使得整个博客网站更加优雅。摘要必须写在文章开头，紧接着文件头部。当摘要写作完成后，另起一行输入 <code>&lt;!-- more --&gt;</code> 即可，这样上面的内容就能被识别，并显示在主页上。不过，这段摘要同样也会在博文页面中被显示出来，需要注意。</p>
-
-        <h1 id="部署"   >
-          <a href="#部署" class="heading-link"><i class="fas fa-link"></i></a>部署</h1>
-      
-        <h2 id="本地配置"   >
-          <a href="#本地配置" class="heading-link"><i class="fas fa-link"></i></a>本地配置</h2>
-      <p>​    打开本地的 _config.yml，找到 deploy （正常情况下在文件最后），将其修改为：</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:    </span><br><span class="line">        type: git    </span><br><span class="line">        repo: &lt;刚刚复制下来的内容&gt;    </span><br><span class="line">        branch: master</span><br></pre></td></tr></table></div></figure>
+<h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><h2 id="本地配置"><a href="#本地配置" class="headerlink" title="本地配置"></a>本地配置</h2><p>​    打开本地的 _config.yml，找到 deploy （正常情况下在文件最后），将其修改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:    </span><br><span class="line">        type: git    </span><br><span class="line">        repo: &lt;刚刚复制下来的内容&gt;    </span><br><span class="line">        branch: master</span><br></pre></td></tr></table></figure>
 
 <p>​    再找到 URL 下的 url（在文件开头处），将其修改为</p>
-<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#URL</span><br><span class="line">url: https:&#x2F;&#x2F;&lt;username&gt;.github.io</span><br></pre></td></tr></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#URL</span><br><span class="line">url: https:&#x2F;&#x2F;&lt;username&gt;.github.io</span><br></pre></td></tr></table></figure>
 
 <p>​    然后在命令行中，进入博客根目录，输入 <code>yarn add hexo-deployer-git</code>（使用 Yarn）或是 <code>npm install hexo-deployer-git --save</code> （使用 npm）。这样本地配置也就完成了。</p>
-
-        <h2 id="hexo-generate-与-hexo-deploy"   >
-          <a href="#hexo-generate-与-hexo-deploy" class="heading-link"><i class="fas fa-link"></i></a>hexo generate 与 hexo deploy</h2>
-      <p>​    最后，在命令行中输入 <code>hexo deploy</code>，就会看到非常长的一串输出，结束后就推送完成了。进到 GitHub 页面查看是否大致是这样子的文件结构</p>
+<h2 id="hexo-generate-与-hexo-deploy"><a href="#hexo-generate-与-hexo-deploy" class="headerlink" title="hexo generate 与 hexo deploy"></a>hexo generate 与 hexo deploy</h2><p>​    最后，在命令行中输入 <code>hexo deploy</code>，就会看到非常长的一串输出，结束后就推送完成了。进到 GitHub 页面查看是否大致是这样子的文件结构</p>
 <p>​    使用 <code>hexo deploy</code> 命令会同时调用 <code>hexo generate</code> 命令，在博客根目录生成一个 public 文件夹，里面的文件就是推送到 GitHub 上的文件。之后想要更新博客内容的话，建议首先使用 <code>hexo clean</code> 命令清除掉 public 文件夹，然后再使用 <code>hexo deploy</code> 推送。</p>
 <p><code>hexo deploy</code> 可被简写为 <code>hexo d</code> ，<code>hexo generate</code> 可被简写为 <code>hexo g</code> ，<code>hexo clean</code> 可被简写为 <code>hexo c</code> 。</p>
-
-        <h1 id="主题与插件"   >
-          <a href="#主题与插件" class="heading-link"><i class="fas fa-link"></i></a>主题与插件</h1>
-      <p>我在最开始提到了 Hexo具有很强的自定义能力，可以打开 Hexo的官网，顶栏上就有 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://hexo.io/themes/" >Themes</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 和 <span class="exturl"><a class="exturl__link"   target="_blank" rel="noopener" href="https://hexo.io/plugins/" >Plugins</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 的入口。</p>
+<h1 id="主题与插件"><a href="#主题与插件" class="headerlink" title="主题与插件"></a>主题与插件</h1><p>我在最开始提到了 Hexo具有很强的自定义能力，可以打开 Hexo的官网，顶栏上就有 <a target="_blank" rel="noopener" href="https://hexo.io/themes/">Themes</a> 和 <a target="_blank" rel="noopener" href="https://hexo.io/plugins/">Plugins</a> 的入口。</p>
 <p>要安装主题，首先需要去 Themes 页面找到一款心仪的主题（可以通过点击图片来访问主题的演示站点），然后点击主题的名称进入主题的 GitHub 页面。如果熟悉 Git 的操作，可以通过 git clone 命令将其克隆至博客根目录下的 themes 文件夹，或者通过 GitHub 自带的下载，下载源码的 zip 包，将其解压缩至 themes 文件夹中。</p>
 <p>git clone 命令：<code>git clone https://github.com/&lt;username&gt;/&lt;reponame&gt;</code></p>
 <p>每个主题文件夹中，都有着自己的 _config.yml，管理着这个主题的一些配置，因此如果想要切换主题，在下载下来后，<strong>一定</strong>要到文件夹中去查看 _config.yml 的配置，并进行自己的个性化修改。同时，GitHub 的仓库页面会显示这个仓库的 README.md 文件，这是这个仓库的说明文件，建议在使用这个主题前提前阅读这个文件，并按照说明安装。</p>
@@ -199,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://hfzh618.github.io/2020/08/24/Hexo%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" data-id="cke8msxy100003p9ofb0r75xa" class="article-share-link">Share</a>
+      <a data-url="https://hfzh618.github.io/2020/08/24/Hexo%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" data-id="cked6db2k0001x59o075yc68q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
@@ -241,7 +190,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trello/" rel="tag">Trello</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Trello/" rel="tag">Trello</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
     </div>
   </div>
 
@@ -251,7 +200,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Trello/" style="font-size: 10px;">Trello</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
+      <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Trello/" style="font-size: 10px;">Trello</a> <a href="/tags/git/" style="font-size: 10px;">git</a>
     </div>
   </div>
 
@@ -271,6 +220,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/08/28/CMU-15-445645-1-Course-Introduction-and-the-Relational-Model/">CMU 15-445645 1.Course Introduction and the Relational Model</a>
+          </li>
         
           <li>
             <a href="/2020/08/28/Trello%E6%95%99%E7%A8%8B/">Trello教程</a>
