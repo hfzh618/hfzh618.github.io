@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>CMU 15-445645 DatabaseStorage Part I - hfzh618的技术博客</title><meta description="CMU数据库课程15-445645系列的第三课笔记Database Storage Part I"><meta property="og:type" content="blog"><meta property="og:title" content="CMU 15-445645 DatabaseStorage Part I"><meta property="og:url" content="https://hfzh618.github.io/2020/09/12/CMU-15-445645-3-DatabaseStorage-Part-I/"><meta property="og:site_name" content="hfzh618的技术博客"><meta property="og:description" content="CMU数据库课程15-445645系列的第三课笔记Database Storage Part I"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://s1.ax1x.com/2020/09/05/wZicut.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/05/wZigDP.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/05/wZiyjI.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdosVH.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdoDqe.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdTuod.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdTUoj.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdTNwQ.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdTteg.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wd7bvV.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wd7Hg0.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdHZUH.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdHAbD.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdHVVe.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdbfYj.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdbWkQ.png"><meta property="og:image" content="https://s1.ax1x.com/2020/09/13/wdb2Tg.png"><meta property="article:published_time" content="2020-09-12T15:59:18.000Z"><meta property="article:modified_time" content="2020-09-12T17:07:19.324Z"><meta property="article:author" content="hfzh618"><meta property="article:tag" content="Database"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://s1.ax1x.com/2020/09/05/wZicut.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://hfzh618.github.io/2020/09/12/CMU-15-445645-3-DatabaseStorage-Part-I/"},"headline":"hfzh618的技术博客","image":["https://s1.ax1x.com/2020/09/05/wZicut.png","https://s1.ax1x.com/2020/09/05/wZigDP.png","https://s1.ax1x.com/2020/09/05/wZiyjI.png","https://s1.ax1x.com/2020/09/13/wdosVH.png","https://s1.ax1x.com/2020/09/13/wdoDqe.png","https://s1.ax1x.com/2020/09/13/wdTuod.png","https://s1.ax1x.com/2020/09/13/wdTUoj.png","https://s1.ax1x.com/2020/09/13/wdTNwQ.png","https://s1.ax1x.com/2020/09/13/wdTteg.png","https://s1.ax1x.com/2020/09/13/wd7bvV.png","https://s1.ax1x.com/2020/09/13/wd7Hg0.png","https://s1.ax1x.com/2020/09/13/wdHZUH.png","https://s1.ax1x.com/2020/09/13/wdHAbD.png","https://s1.ax1x.com/2020/09/13/wdHVVe.png","https://s1.ax1x.com/2020/09/13/wdbfYj.png","https://s1.ax1x.com/2020/09/13/wdbWkQ.png","https://s1.ax1x.com/2020/09/13/wdb2Tg.png"],"datePublished":"2020-09-12T15:59:18.000Z","dateModified":"2020-09-12T17:07:19.324Z","author":{"@type":"Person","name":"hfzh618"},"description":"CMU数据库课程15-445645系列的第三课笔记Database Storage Part I"}</script><link rel="canonical" href="https://hfzh618.github.io/2020/09/12/CMU-15-445645-3-DatabaseStorage-Part-I/"><link rel="icon" href="https://s1.ax1x.com/2020/09/04/wi2e56.th.jpg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><meta name="generator" content="Hexo 5.0.2"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="hfzh618的技术博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-09-12T15:59:18.000Z" title="2020-09-12T15:59:18.000Z">2020-09-12</time></span><span class="level-item">Updated&nbsp;<time dateTime="2020-09-12T17:07:19.324Z" title="2020-09-12T17:07:19.324Z">2020-09-13</time></span><span class="level-item">18 minutes read (About 2731 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">CMU 15-445645 DatabaseStorage Part I</h1><div class="content"><p>CMU数据库课程<strong>15-445645</strong>系列的第三课笔记Database Storage Part I</p>
+<a id="more"></a>
+
+<h1 id="Database-Storage-Part-I"><a href="#Database-Storage-Part-I" class="headerlink" title="Database Storage Part I"></a>Database Storage Part I</h1><h2 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="OVERVIEW"></a>OVERVIEW</h2><p>We now understand what a database looks like at a logical level and how to write queries to read/write data from it. We will next learn how to build software that manages a database.</p>
+<p>学习如何在数据库中保存数据，允许从数据库中执行查询以及处理得出新的数据。</p>
+<h2 id="COURSE-OUTLINE"><a href="#COURSE-OUTLINE" class="headerlink" title="COURSE OUTLINE"></a>COURSE OUTLINE</h2><ul>
+<li>Relational Databases </li>
+<li>Storage Execution</li>
+<li>Concurrency Control </li>
+<li>Recovery </li>
+<li>Distributed Databases </li>
+<li>Potpourri</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/09/05/wZicut.png"></p>
+<p>本节讨论磁盘管理器，即实际上如何将数据存储在磁盘的文件中。</p>
+<h2 id="DISK-ORIENTED-ARCHITECTURE"><a href="#DISK-ORIENTED-ARCHITECTURE" class="headerlink" title="DISK-ORIENTED ARCHITECTURE"></a>DISK-ORIENTED ARCHITECTURE</h2><p>The DBMS assumes that the primary storage location of the database is on non-volatile disk. </p>
+<p>The DBMS’s components manage the movement of data between non-volatile and volatile storage.</p>
+<p>每次查询时，数据都不在内存中，需要进入磁盘中来取得该数据。</p>
+<p>首先需要区分易失性存储(内存)和非易失性存储(磁盘)。</p>
+<p>简单而言，我们的系统管理了数据从非易失性存储到易失性存储的移动。</p>
+<h2 id="STORAGE-HIERARCHY-存储层次"><a href="#STORAGE-HIERARCHY-存储层次" class="headerlink" title="STORAGE HIERARCHY 存储层次"></a>STORAGE HIERARCHY 存储层次</h2><p><img src="https://s1.ax1x.com/2020/09/05/wZigDP.png"></p>
+<h3 id="易失性存储"><a href="#易失性存储" class="headerlink" title="易失性存储"></a>易失性存储</h3><p>上层的存储设备速度非常快，容量小，价格贵。</p>
+<p>最上面有CPU寄存器，CPU L1 L2 L3缓存。</p>
+<p>分割线上面的是易失性存储设备，断电时数据会完全丢失。</p>
+<p>支持快速随机访问，可以快速跳转到该存储设备的任意位置</p>
+<p>具备字节可寻址能力，可以读取到某个位置的64byte大小的数据</p>
+<h3 id="非易失性存储"><a href="#非易失性存储" class="headerlink" title="非易失性存储"></a>非易失性存储</h3><p>下面有SSD HDD等 速度慢 容量大 价格便宜</p>
+<p>具备的是块可寻址能力，而不是字节可寻址。无法准确得到64byte的数据，得到的是包含想要的数据的块或者页面，然后从中再去获取想要的数据。</p>
+<p>具有更快的循序访问，比起随机读取不同位置的内容，可以更有效率地读取一块连续的块中的内容。</p>
+<p>机械硬盘的工作原理是让磁头壁在磁盘上进行移动来访问数据。</p>
+<p>访问新的位置，必须移动磁头壁到该位置。</p>
+<p>在这些存储设置中，我们希望可以最大化按顺序读取的数据量。</p>
+<p>本课程关系的是如何将数据放入内存。</p>
+<h3 id="访问速度的区别"><a href="#访问速度的区别" class="headerlink" title="访问速度的区别"></a>访问速度的区别</h3><p><img src="https://s1.ax1x.com/2020/09/05/wZiyjI.png"></p>
+<h2 id="SYSTEM-DESIGN-GOALS"><a href="#SYSTEM-DESIGN-GOALS" class="headerlink" title="SYSTEM DESIGN GOALS"></a>SYSTEM DESIGN GOALS</h2><p>Allow the DBMS to manage databases that exceed the amount of memory available. </p>
+<p>Reading/writing to disk is expensive, so it must be managed carefully to avoid large stalls and performance degradation.</p>
+<p>给应用系统一种错觉，即我们能提供足够的内存将整个数据库存入内存中。</p>
+<p>谨慎地最小化从磁盘中读取内容或运行查询所带来的影响。</p>
+<p>使用很多技巧来避免这种缓慢的问题。</p>
+<h2 id="DISK-ORIENTED-DBMS"><a href="#DISK-ORIENTED-DBMS" class="headerlink" title="DISK-ORIENTED DBMS"></a>DISK-ORIENTED DBMS</h2><p>数据库系统的高级示意图</p>
+<p>最底层是磁盘和数据库文件。通过不同的块或者页面来表示</p>
+<p>在内存中有一个被称为buffer缓冲池的东西</p>
+<p>系统中有一些高级的比如查询引擎、执行引擎，会向buffer pool发出请求</p>
+<p>比如想要读取page2 但是page2不在内存中</p>
+<p>此时需要去磁盘中的page目录中进行查找，从中找到page2，并放到内存中。然后将指向page2的指针返回给执行引擎。</p>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdosVH.png"></p>
+<h2 id="WHY-NOT-USE-THE-OS"><a href="#WHY-NOT-USE-THE-OS" class="headerlink" title="WHY NOT USE THE OS?"></a>WHY NOT USE THE OS?</h2><p>One can use memory mapping (mmap) to store the contents of a file into a process’ address space.</p>
+<p>The OS is responsible for moving data for moving the files’ pages in and out of memory.</p>
+<p>本质上放弃了数据在内存以及磁盘上来回移动的控制权，而是由操作系统来进行管理。</p>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdoDqe.png"></p>
+<p>如果要读取page1，会去虚拟内存中查找，发现缺页，然后从磁盘中读取到，放到物理内存中，并且更新page表去指向该内存地址。</p>
+<p>对于page3也会执行同样的操作</p>
+<p>对于page2而言，没有空闲的物理内存来存放page,需要判断这些页面中该移除哪一个。</p>
+<p>现在不得不让数据库停止请求该page的线程</p>
+<p>从应用程序的角度，数据库可能去读取某些并没有放在内存中的东西。</p>
+<p>What if we allow multiple threads to access the mmap files to hide page fault stalls?</p>
+<p>This works good enough for read-only access. It is complicated when there are multiple writers…</p>
+<p>当写入数据时会有问题，因为os并不知道某些pages必须要在其他pages执行之前先从内存刷到磁盘中</p>
+<p>There are some solutions to this problem: </p>
+<ul>
+<li>madvise: Tell the OS how you expect to read certain pages.</li>
+<li>mlock: Tell the OS that memory ranges cannot be paged out. </li>
+<li>msync: Tell the OS to flush memory ranges out to disk.</li>
+</ul>
+<p>主流的DB不使用mmap</p>
+<p>DBMS (almost) always wants to control things itself and can do a better job at it. </p>
+<ul>
+<li><p>Flushing dirty pages to disk in the correct order. </p>
+</li>
+<li><p>Specialized prefetching. </p>
+</li>
+<li><p>Buffer replacement policy. </p>
+</li>
+<li><p>Thread/process scheduling. </p>
+</li>
+</ul>
+<p>  The OS is not your friend.</p>
+<h2 id="DATABASE-STORAGE"><a href="#DATABASE-STORAGE" class="headerlink" title="DATABASE STORAGE"></a>DATABASE STORAGE</h2><p>Problem #1:</p>
+<pre><code> How the DBMS represents the database in files on disk.   (DBMS如何用磁盘上的文件来表示数据库)</code></pre>
+<p>Problem #2: </p>
+<pre><code>How the DBMS manages its memory and move data back-and-forth from disk. (DBMS如何管理内存)</code></pre>
+<h2 id="TODAY’S-AGENDA"><a href="#TODAY’S-AGENDA" class="headerlink" title="TODAY’S AGENDA"></a>TODAY’S AGENDA</h2><ul>
+<li>File Storage </li>
+<li>Page Layout </li>
+<li>Tuple Layout</li>
+</ul>
+<p>首先讨论如何在一系列页(pages)上组织数据库，然后讨论如何将这些页存储在文件中。然后讨论在这些页中的tuple看起来是什么样的</p>
+<h2 id="FILE-STORAGE"><a href="#FILE-STORAGE" class="headerlink" title="FILE STORAGE"></a>FILE STORAGE</h2><p>说到底，数据库就是存储在磁盘上的一系列文件。</p>
+<p>某些系统将数据库存为一个文件，大多数的存为多个文件。</p>
+<ul>
+<li>操作系统根本不知道这些文件里有什么，只是将其视为一堆二进制数据</li>
+</ul>
+<p>这些数据库文件我们通常会存放在操作系统提供给我们的文件系统中。基于os提供的基本读写api来进行读写。</p>
+<h2 id="STORAGE-MANAGER"><a href="#STORAGE-MANAGER" class="headerlink" title="STORAGE MANAGER"></a>STORAGE MANAGER</h2><p>存储引擎是数据库系统中的一个组件，负责维护在磁盘上的数据库文件。</p>
+<p>基于它可以进行读写操作并让操作系统来进行调度工作</p>
+<p>The storage manager is responsible for maintaining a database’s files.</p>
+<ul>
+<li>Some do their own scheduling for reads and writes to improve spatial and temporal locality of pages. </li>
+</ul>
+<p>  It organizes the files as a collection of pages.</p>
+<ul>
+<li><p>Tracks data read/written to pages. </p>
+</li>
+<li><p>Tracks the available space.</p>
+<p>(将这些文件组织为一个page的集合，存储引擎跟踪在page上的读取和写入操作)</p>
+</li>
+</ul>
+<h2 id="DATABASE-PAGES"><a href="#DATABASE-PAGES" class="headerlink" title="DATABASE PAGES"></a>DATABASE PAGES</h2><p>A page is a fixed-size block of data.   (一个page就是一个固定大小的数据块)</p>
+<ul>
+<li><p>It can contain tuples, meta-data, indexes, log records…</p>
+</li>
+<li><p>Most systems do not mix page types.   （不会在page中混合使用不同类型的数据）</p>
+</li>
+<li><p>Some systems require a page to be self-contained.(所有的信息都需要知道是如何去解释和理解)</p>
+</li>
+</ul>
+<p>  Each page is given a unique identifier.      (数据库系统为我们生成page id)</p>
+<ul>
+<li>The DBMS uses an indirection layer to map page ids to physical locations.(其实就是记录一个相对位置，方便文件整体移动后，只要知道整体文件的初始位置，就可以通过相对位置即page id获取到某个文件某个位置对应的page)</li>
+</ul>
+<p>DBMS里有不同层次的page</p>
+<ul>
+<li>hardware page (usually 4KB)</li>
+<li>os page(usually 4KB)</li>
+<li>database page(512B-16KB)</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdTuod.png"></p>
+<p>hardware page是写入存储设备的最低底层的东西</p>
+<h3 id="PAGE-STORAGE-ARCHITECTURE"><a href="#PAGE-STORAGE-ARCHITECTURE" class="headerlink" title="PAGE STORAGE ARCHITECTURE"></a>PAGE STORAGE ARCHITECTURE</h3><p>如何表示page存储架构</p>
+<p>Different DBMSs manage pages in files on disk in different ways. </p>
+<ul>
+<li>Heap File Organization </li>
+<li>Sequential / Sorted File Organization </li>
+<li>Hashing File Organization</li>
+</ul>
+<h2 id="DATABASE-HEAP"><a href="#DATABASE-HEAP" class="headerlink" title="DATABASE HEAP"></a>DATABASE HEAP</h2><p>A heap file is an unordered collection of pages where tuples that are stored in random order. </p>
+<ul>
+<li>Create / Get / Write / Delete Page </li>
+<li>Must also support iterating over all pages.</li>
+</ul>
+<p>需要元数据来记录哪一个page存在以及哪一个有空闲的空间。</p>
+<p>two ways to represent a heap file:</p>
+<ul>
+<li>Linked list</li>
+<li>page directory</li>
+</ul>
+<h3 id="HEAP-FILE-LINKED-LIST"><a href="#HEAP-FILE-LINKED-LIST" class="headerlink" title="HEAP FILE: LINKED LIST"></a>HEAP FILE: LINKED LIST</h3><p>Maintain a header page at the beginning of the file that stores two pointers: </p>
+<ul>
+<li>HEAD of the free page list. </li>
+<li>HEAD of the data page list.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdTUoj.png"></p>
+<p>Each page keeps track of the number of free slots in itself.</p>
+<h3 id="HEAP-FILE-PAGE-DIRECTORY"><a href="#HEAP-FILE-PAGE-DIRECTORY" class="headerlink" title="HEAP FILE: PAGE DIRECTORY"></a>HEAP FILE: PAGE DIRECTORY</h3><p>The DBMS maintains special pages that tracks the location of data pages in the database files.</p>
+<p>The directory also records the number of free slots per page.</p>
+<p>The DBMS has to make sure that the directory pages are in sync with the data pages.</p>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdTNwQ.png"></p>
+<h2 id="PAGE-HEADER"><a href="#PAGE-HEADER" class="headerlink" title="PAGE HEADER"></a>PAGE HEADER</h2><p>Every page contains a header of metadata about the page’s contents</p>
+<ul>
+<li>page size</li>
+<li>checksum</li>
+<li>DBMS version</li>
+<li>Transaction visibility</li>
+<li>Compression Information</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdTteg.png"></p>
+<h2 id="PAGE-LAYOUT"><a href="#PAGE-LAYOUT" class="headerlink" title="PAGE LAYOUT"></a>PAGE LAYOUT</h2><p>For any page storage architecture, we now need to understand how to organize the data stored inside of the page. </p>
+<ul>
+<li>We are still assuming that we are only storing tuples. </li>
+</ul>
+<p>Two approaches: </p>
+<ul>
+<li><p>Tuple-oriented </p>
+</li>
+<li><p>Log-structured</p>
+</li>
+</ul>
+<h3 id="TUPLE-STORAGE"><a href="#TUPLE-STORAGE" class="headerlink" title="TUPLE STORAGE"></a>TUPLE STORAGE</h3><blockquote>
+<p>How to store tuples in a page?</p>
+</blockquote>
+<p><strong>Strawman Idea:</strong> </p>
+<p>Keep track of the number of tuples in a page and then just append a new tuple to the end.</p>
+<ul>
+<li>What happens if we delete a tuple?    不方便处理删除</li>
+<li>What happens if we have a variable length attribute?    不方便处理长度不固定的数据</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/09/13/wd7bvV.png"></p>
+<p>每次插入一个tuple,找到下一个空闲的偏移量插入并更新计数器num</p>
+<h3 id="SLOT-TED-PAGES"><a href="#SLOT-TED-PAGES" class="headerlink" title="SLOT TED PAGES"></a>SLOT TED PAGES</h3><p>The most common layout scheme is called slotted pages.</p>
+<p>所有的数据库都这么使用</p>
+<p>The slot array maps “slots” to the tuples’ starting position offsets.</p>
+<p>The header keeps track of:</p>
+<ul>
+<li>The # of used slots</li>
+<li>→ The offset of the starting location of the last slot used</li>
+</ul>
+<p>header能够保持基本的元数据，同时也必须有能够保持数据的区域。底部空间用来保存想要的数据。</p>
+<p>slot数组本质上是将一个特定的slot映射到page上的某个偏移量上</p>
+<p><img src="https://s1.ax1x.com/2020/09/13/wd7Hg0.png"></p>
+<h2 id="LOG-STRUCTURED-FILE-ORGANIZATION"><a href="#LOG-STRUCTURED-FILE-ORGANIZATION" class="headerlink" title="LOG-STRUCTURED FILE ORGANIZATION"></a>LOG-STRUCTURED FILE ORGANIZATION</h2><p>Instead of storing tuples in pages, the DBMS only stores log records.</p>
+<p>The system appends log records to the file of how the database was modified:</p>
+<ul>
+<li>Inserts store the entire tuple.</li>
+<li>Deletes mark the tuple as deleted.</li>
+<li>Updates contain the delta of just the attributes that were modified.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdHZUH.png"></p>
+<p>To read a record, the DBMS scans the log backwards and “recreates” the tuple to find what it needs.</p>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdHAbD.png"></p>
+<p>Build indexes to allow it to jump to locations in the log.</p>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdHVVe.png"></p>
+<h2 id="TUPLE-L-AYOUT"><a href="#TUPLE-L-AYOUT" class="headerlink" title="TUPLE L AYOUT"></a>TUPLE L AYOUT</h2><p>A tuple is essentially a sequence of bytes.</p>
+<p>It’s the job of the DBMS to interpret those bytes into attribute types and values.</p>
+<p>这就是我们需要schema的原因</p>
+<h3 id="TUPLE-HEADER"><a href="#TUPLE-HEADER" class="headerlink" title="TUPLE HEADER"></a>TUPLE HEADER</h3><p>Each tuple is prefixed with a header that contains meta-data about it。</p>
+<ul>
+<li>Visibility info (concurrency control)</li>
+<li>Bit Map for NULL values.</li>
+</ul>
+<p>We do not need to store meta-data about the schema.</p>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdbfYj.png"></p>
+<h3 id="TUPLE-DATA"><a href="#TUPLE-DATA" class="headerlink" title="TUPLE DATA"></a>TUPLE DATA</h3><p>Attributes are typically stored in the order that you specify them when you create the table.</p>
+<p>This is done for software engineering reasons</p>
+<p>We re-order attributes automatically in CMU’s new DBMS…</p>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdbWkQ.png"></p>
+<h2 id="DENORMALIZED-TUPLE-DATA-（反序列化）"><a href="#DENORMALIZED-TUPLE-DATA-（反序列化）" class="headerlink" title="DENORMALIZED TUPLE DATA  （反序列化）"></a>DENORMALIZED TUPLE DATA  （反序列化）</h2><p>Can physically denormalize (e.g., “pre join”) related tuples and store them together in the same page.</p>
+<ul>
+<li>Potentially reduces the amount of I/O for common workload patterns.</li>
+<li>Can make updates more expensive.</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/09/13/wdb2Tg.png"></p>
+<p>Not a new idea.</p>
+<ul>
+<li>IBM System R did this in the 1970s</li>
+<li>Several NoSQL DBMSs do this without calling it physical denormalization.</li>
+</ul>
+<h1 id="CONCLUSION"><a href="#CONCLUSION" class="headerlink" title="CONCLUSION"></a>CONCLUSION</h1><p>Database is organized in pages. </p>
+<p>Different ways to track pages. </p>
+<p>Different ways to store pages.</p>
+<p>Different ways to store tuples</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>CMU 15-445645 DatabaseStorage Part I</p><p><a href="https://hfzh618.github.io/2020/09/12/CMU-15-445645-3-DatabaseStorage-Part-I/">https://hfzh618.github.io/2020/09/12/CMU-15-445645-3-DatabaseStorage-Part-I/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>hfzh618</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2020-09-12</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2020-09-13</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="icon" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a><a class="icon" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags size-small mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Database/">Database</a></div><div class="notification is-danger">You need to set <code>install_url</code> to use ShareThis. Please set it in <code>_config.yml</code>.</div></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" href="/" style="background-color:#885fd9;border-color:transparent;color:white;" target="_blank" rel="noopener"><span class="icon is-small"><i class="fas fa-charging-station"></i></span><span>Afdian.net</span></a><a class="button is-info donate"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="/" alt="Alipay"></span></a><a class="button donate" href="/" style="background-color:rgba(255,128,62,.87);border-color:transparent;color:white;" target="_blank" rel="noopener"><span class="icon is-small"><i class="fas fa-coffee"></i></span><span>Buy me a coffee</span></a><a class="button is-danger donate" href="/" target="_blank" rel="noopener"><span class="icon is-small"><i class="fab fa-patreon"></i></span><span>Patreon</span></a><div class="notification is-danger">You forgot to set the <code>business</code> or <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.</div><a class="button is-success donate"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="/" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/09/05/CMU-15-445645-2-Advanced%20SQL/"><span class="level-item">CMU 15-445645 第二课</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">Comments</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://hfzh618.github.io/2020/09/12/CMU-15-445645-3-DatabaseStorage-Part-I/';
+            this.page.identifier = '2020/09/12/CMU-15-445645-3-DatabaseStorage-Part-I/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'hfzh618' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://s1.ax1x.com/2020/09/04/wi2e56.th.jpg" alt="hfzh618"></figure><p class="title is-size-4 is-block line-height-inherit">hfzh618</p><p class="is-size-6 is-block">software engineer</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Shanghai,China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives"><p class="title">9</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories"><p class="title">0</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags"><p class="title">4</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/hfzh618" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/hfzh618"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="is-flex" href="#Database-Storage-Part-I"><span class="mr-2">1</span><span>Database Storage Part I</span></a><ul class="menu-list"><li><a class="is-flex" href="#OVERVIEW"><span class="mr-2">1.1</span><span>OVERVIEW</span></a></li><li><a class="is-flex" href="#COURSE-OUTLINE"><span class="mr-2">1.2</span><span>COURSE OUTLINE</span></a></li><li><a class="is-flex" href="#DISK-ORIENTED-ARCHITECTURE"><span class="mr-2">1.3</span><span>DISK-ORIENTED ARCHITECTURE</span></a></li><li><a class="is-flex" href="#STORAGE-HIERARCHY-存储层次"><span class="mr-2">1.4</span><span>STORAGE HIERARCHY 存储层次</span></a><ul class="menu-list"><li><a class="is-flex" href="#易失性存储"><span class="mr-2">1.4.1</span><span>易失性存储</span></a></li><li><a class="is-flex" href="#非易失性存储"><span class="mr-2">1.4.2</span><span>非易失性存储</span></a></li><li><a class="is-flex" href="#访问速度的区别"><span class="mr-2">1.4.3</span><span>访问速度的区别</span></a></li></ul></li><li><a class="is-flex" href="#SYSTEM-DESIGN-GOALS"><span class="mr-2">1.5</span><span>SYSTEM DESIGN GOALS</span></a></li><li><a class="is-flex" href="#DISK-ORIENTED-DBMS"><span class="mr-2">1.6</span><span>DISK-ORIENTED DBMS</span></a></li><li><a class="is-flex" href="#WHY-NOT-USE-THE-OS"><span class="mr-2">1.7</span><span>WHY NOT USE THE OS?</span></a></li><li><a class="is-flex" href="#DATABASE-STORAGE"><span class="mr-2">1.8</span><span>DATABASE STORAGE</span></a></li><li><a class="is-flex" href="#TODAY’S-AGENDA"><span class="mr-2">1.9</span><span>TODAY’S AGENDA</span></a></li><li><a class="is-flex" href="#FILE-STORAGE"><span class="mr-2">1.10</span><span>FILE STORAGE</span></a></li><li><a class="is-flex" href="#STORAGE-MANAGER"><span class="mr-2">1.11</span><span>STORAGE MANAGER</span></a></li><li><a class="is-flex" href="#DATABASE-PAGES"><span class="mr-2">1.12</span><span>DATABASE PAGES</span></a><ul class="menu-list"><li><a class="is-flex" href="#PAGE-STORAGE-ARCHITECTURE"><span class="mr-2">1.12.1</span><span>PAGE STORAGE ARCHITECTURE</span></a></li></ul></li><li><a class="is-flex" href="#DATABASE-HEAP"><span class="mr-2">1.13</span><span>DATABASE HEAP</span></a><ul class="menu-list"><li><a class="is-flex" href="#HEAP-FILE-LINKED-LIST"><span class="mr-2">1.13.1</span><span>HEAP FILE: LINKED LIST</span></a></li><li><a class="is-flex" href="#HEAP-FILE-PAGE-DIRECTORY"><span class="mr-2">1.13.2</span><span>HEAP FILE: PAGE DIRECTORY</span></a></li></ul></li><li><a class="is-flex" href="#PAGE-HEADER"><span class="mr-2">1.14</span><span>PAGE HEADER</span></a></li><li><a class="is-flex" href="#PAGE-LAYOUT"><span class="mr-2">1.15</span><span>PAGE LAYOUT</span></a><ul class="menu-list"><li><a class="is-flex" href="#TUPLE-STORAGE"><span class="mr-2">1.15.1</span><span>TUPLE STORAGE</span></a></li><li><a class="is-flex" href="#SLOT-TED-PAGES"><span class="mr-2">1.15.2</span><span>SLOT TED PAGES</span></a></li></ul></li><li><a class="is-flex" href="#LOG-STRUCTURED-FILE-ORGANIZATION"><span class="mr-2">1.16</span><span>LOG-STRUCTURED FILE ORGANIZATION</span></a></li><li><a class="is-flex" href="#TUPLE-L-AYOUT"><span class="mr-2">1.17</span><span>TUPLE L AYOUT</span></a><ul class="menu-list"><li><a class="is-flex" href="#TUPLE-HEADER"><span class="mr-2">1.17.1</span><span>TUPLE HEADER</span></a></li><li><a class="is-flex" href="#TUPLE-DATA"><span class="mr-2">1.17.2</span><span>TUPLE DATA</span></a></li></ul></li><li><a class="is-flex" href="#DENORMALIZED-TUPLE-DATA-（反序列化）"><span class="mr-2">1.18</span><span>DENORMALIZED TUPLE DATA  （反序列化）</span></a></li></ul></li><li><a class="is-flex" href="#CONCLUSION"><span class="mr-2">2</span><span>CONCLUSION</span></a></li></ul></div></div><style>.menu-list > li > a.is-active + .menu-list { display: block; }.menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><!--!--><div class="card widget"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content size-small"><p><time dateTime="2020-09-12T15:59:18.000Z">2020-09-12</time></p><p class="title is-6"><a class="link-muted" href="/2020/09/12/CMU-15-445645-3-DatabaseStorage-Part-I/">CMU 15-445645 DatabaseStorage Part I</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-09-05T14:56:27.000Z">2020-09-05</time></p><p class="title is-6"><a class="link-muted" href="/2020/09/05/CMU-15-445645-2-Advanced%20SQL/">CMU 15-445645 第二课</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-09-01T15:37:13.000Z">2020-09-01</time></p><p class="title is-6"><a class="link-muted" href="/2020/09/01/Git%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B-%E5%88%86%E6%94%AF%E7%AF%87/">Git使用教程-分支篇</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-09-01T15:34:48.000Z">2020-09-01</time></p><p class="title is-6"><a class="link-muted" href="/2020/09/01/Git%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B-%E5%9F%BA%E7%A1%80%E7%AF%87/">Git使用教程-基础篇</a></p><p class="is-uppercase"></p></div></article><article class="media"><div class="media-content size-small"><p><time dateTime="2020-09-01T15:30:10.000Z">2020-09-01</time></p><p class="title is-6"><a class="link-muted" href="/2020/09/01/Git%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B-%E8%B5%B7%E6%AD%A5%E7%AF%87/">Git使用教程-起步篇</a></p><p class="is-uppercase"></p></div></article></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile is-marginless" href="/archives/2020/09/"><span class="level-start"><span class="level-item">September 2020</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile is-marginless" href="/archives/2020/08/"><span class="level-start"><span class="level-item">August 2020</span></span><span class="level-end"><span class="level-item tag">4</span></span></a></li></ul></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Database/"><span class="tag">Database</span><span class="tag is-grey-lightest">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Hexo/"><span class="tag">Hexo</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/Trello/"><span class="tag">Trello</span><span class="tag is-grey-lightest">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag is-grey-lightest">4</span></a></div></div></div></div></div><div class="card widget"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button is-primary" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="hfzh618的技术博客" height="28"></a><p class="size-small"><span>&copy; 2020 hfzh618</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            site: {
+                url: 'https://hfzh618.github.io',
+                external_link: {"enable":true,"exclude":[]}
+            },
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
